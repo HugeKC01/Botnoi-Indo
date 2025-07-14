@@ -143,7 +143,6 @@ export const TTSForm = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowApiKey(!showApiKey)}
-                className="text-primary hover:text-primary/80"
               >
                 {showApiKey ? (
                   <>
@@ -291,7 +290,7 @@ export const TTSForm = () => {
             <Button
               onClick={handleGenerate}
               disabled={isLoading}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3"
+              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-accent-foreground py-3 border-0 shadow-lg"
               size="lg"
             >
               {isLoading ? (
@@ -312,7 +311,7 @@ export const TTSForm = () => {
                 <Button
                   onClick={handleDownload}
                   variant="outline"
-                  className="flex-1"
+                  className="flex-1 border-accent text-accent hover:bg-accent/10"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   {t('download')}
@@ -320,7 +319,7 @@ export const TTSForm = () => {
                 <Button
                   onClick={handleRegenerate}
                   variant="outline"
-                  className="flex-1"
+                  className="flex-1 border-accent text-accent hover:bg-accent/10"
                   disabled={isLoading}
                 >
                   <RotateCcw className="w-4 h-4 mr-2" />

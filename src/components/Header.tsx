@@ -12,12 +12,12 @@ export const Header = () => {
         <div className="flex items-center space-x-8">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">V</span>
+              <span className="text-primary-foreground font-bold text-sm">B</span>
             </div>
-            <span className="text-xl font-bold text-foreground">V4ICE</span>
+            <span className="text-xl font-bold text-foreground">Botnoi Indonesia</span>
           </div>
           <nav>
-            <Button variant="ghost" className="text-foreground hover:text-primary">
+            <Button variant="ghost">
               {t('home')}
             </Button>
           </nav>
