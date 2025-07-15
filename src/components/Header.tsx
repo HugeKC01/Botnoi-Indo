@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { LoginDialog } from './LoginDialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LogIn, Globe } from 'lucide-react';
@@ -6,6 +8,7 @@ import { LogIn, Globe } from 'lucide-react';
 export const Header = () => {
   const { language, setLanguage, t } = useLanguage();
 
+  const [loginOpen, setLoginOpen] = useState(false);
   return (
     <header className="w-full bg-background border-b border-border px-6 py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -35,10 +38,11 @@ export const Header = () => {
             </SelectContent>
           </Select>
           
-          <Button variant="outline" className="flex items-center space-x-2">
+          <Button variant="outline" className="flex items-center space-x-2" onClick={() => setLoginOpen(true)}>
             <LogIn className="w-4 h-4" />
             <span>{t('login')}</span>
           </Button>
+          <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
         </div>
       </div>
     </header>

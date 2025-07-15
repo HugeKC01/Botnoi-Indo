@@ -157,14 +157,14 @@ export const TTSForm = () => {
                 )}
               </Button>
             </div>
-            <Input
-              id="apiKey"
-              type={showApiKey ? 'text' : 'password'}
-              placeholder={t('enterApiKey')}
-              value={formData.apiKey}
-              onChange={(e) => setFormData({ ...formData, apiKey: e.target.value })}
-              className="w-full"
-            />
+              <Input
+                id="apiKey"
+                type={showApiKey ? 'text' : 'password'}
+                placeholder={t('enterApiKey')}
+                value={formData.apiKey}
+                onChange={(e) => setFormData({ ...formData, apiKey: e.target.value })}
+                className="w-full bg-white"
+              />
             <p className="text-xs text-muted-foreground">
               {t('signInToRetrieve')}
             </p>
@@ -180,7 +180,7 @@ export const TTSForm = () => {
               placeholder={t('enterText')}
               value={formData.text}
               onChange={(e) => setFormData({ ...formData, text: e.target.value })}
-              className="min-h-[120px] resize-none"
+              className="min-h-[120px] resize-none bg-white"
             />
           </div>
 
@@ -195,7 +195,7 @@ export const TTSForm = () => {
                 type="number"
                 value={formData.speaker}
                 onChange={(e) => setFormData({ ...formData, speaker: e.target.value })}
-                className="w-full"
+                className="w-full bg-white"
               />
               <p className="text-xs text-muted-foreground">
                 {t('differentSpeakers')}
@@ -207,7 +207,7 @@ export const TTSForm = () => {
                 {t('language')}
               </Label>
               <Select value="id" disabled>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full bg-white">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
