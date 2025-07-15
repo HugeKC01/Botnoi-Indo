@@ -40,7 +40,32 @@ const translations: Translations = {
   errorOccurred: { en: 'An error occurred while generating speech', id: 'Terjadi kesalahan saat menghasilkan suara' },
   audioGenerated: { en: 'Audio generated successfully!', id: 'Audio berhasil dihasilkan!' },
   pleaseEnterText: { en: 'Please enter text to convert', id: 'Silakan masukkan teks untuk dikonversi' },
-  pleaseEnterApiKey: { en: 'Please enter your API key', id: 'Silakan masukkan kunci API Anda' }
+  pleaseEnterApiKey: { en: 'Please enter your API key', id: 'Silakan masukkan kunci API Anda' },
+  // Newly added/refined TTS form text
+  ttsTitle: { en: 'Indonesian Text-to-Speech', id: 'Teks ke Suara Bahasa Indonesia' },
+  ttsDescription: {
+    en: 'Instantly turn your Indonesian text into clear, natural-sounding speech. Enter your text, adjust the voice, and download your audio in seconds.',
+    id: 'Ubah teks Bahasa Indonesia Anda menjadi suara jernih dan alami secara instan. Masukkan teks, atur suara, dan unduh audio Anda dalam hitungan detik.'
+  },
+  apiKeySection: { en: 'API Key', id: 'Kunci API' },
+  apiKeyHint: { en: 'Get your API key from your Botnoi account dashboard.', id: 'Dapatkan kunci API Anda dari dasbor akun Botnoi.' },
+  textSection: { en: 'Text to Convert', id: 'Teks untuk Dikonversi' },
+  textLabel: { en: 'Text', id: 'Teks' },
+  textPlaceholder: { en: 'Type or paste Indonesian text here...', id: 'Ketik atau tempel teks Bahasa Indonesia di sini...' },
+  textHint: { en: 'Enter the Indonesian text you want to convert. For best results, use clear and complete sentences.', id: 'Masukkan teks Bahasa Indonesia yang ingin Anda konversi. Untuk hasil terbaik, gunakan kalimat yang jelas dan lengkap.' },
+  characters: { en: 'characters', id: 'karakter' },
+  voiceSection: { en: 'Voice Settings', id: 'Pengaturan Suara' },
+  voiceId: { en: 'Voice ID', id: 'ID Suara' },
+  voiceIdHint: { en: 'Choose a different number for a different voice style.', id: 'Pilih angka berbeda untuk gaya suara yang berbeda.' },
+  audioFormat: { en: 'Audio Format', id: 'Format Audio' },
+  actions: { en: 'Actions', id: 'Aksi' },
+  generateAudio: { en: 'Generate Audio', id: 'Buat Audio' },
+  audioPreview: { en: 'Audio Preview', id: 'Pratinjau Audio' },
+  audioReady: { en: 'Your audio is ready! Listen or download below.', id: 'Audio Anda siap! Dengarkan atau unduh di bawah.' },
+  tips: { en: 'Tips for Best Results', id: 'Tips untuk Hasil Terbaik' },
+  tip1: { en: 'Keep sentences short and clear for better pronunciation.', id: 'Gunakan kalimat singkat dan jelas untuk pelafalan yang lebih baik.' },
+  tip2: { en: 'Adjust speed and volume to suit your needs.', id: 'Atur kecepatan dan volume sesuai kebutuhan Anda.' },
+  tip3: { en: 'Try different Voice IDs for a variety of voices.', id: 'Coba ID Suara yang berbeda untuk variasi suara.' },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
