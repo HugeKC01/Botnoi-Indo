@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 245 245 250;
+    --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -199,7 +199,7 @@ All colors MUST be HSL.
   }
 
   body {
-    background-color: hsl(var(--background));
+    background-color: #fff !important;
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
   }

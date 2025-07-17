@@ -130,8 +130,7 @@ export const Header = () => {
           ) : (
             <div className="flex items-center space-x-2">
               <Button 
-                variant="outline" 
-                className="flex items-center space-x-2 border-accent/20 text-accent hover:bg-accent hover:text-white hover:border-accent/40 transition-all duration-200" 
+                variant="outline"
                 onClick={() => setLoginOpen(true)}
               >
                 <LogIn className="w-4 h-4" />

@@ -2,13 +2,13 @@
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   /* Target Safari specifically */
   body {
-    background-color: #f5f5fa !important;
-    background: #f5f5fa !important;
+    background-color: #fff !important;
+    background: #fff !important;
   }
   
   .bg-background {
-    background-color: #f5f5fa !important;
-    background: #f5f5fa !important;
+    background-color: #fff !important;
+    background: #fff !important;
   }
   
   .bg-gradient-to-br {

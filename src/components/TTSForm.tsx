@@ -143,7 +143,7 @@ export const TTSForm = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Form */}
         <div className="lg:col-span-2">
-          <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm">
+          <Card className="shadow-xl border-0 bg-white backdrop-blur-sm">
             <CardContent className="p-8 space-y-8">
               {/* API Key Section */}
               <div className="space-y-4">
@@ -163,7 +163,7 @@ export const TTSForm = () => {
                     </Label>
                     <Button
                       type="button"
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => setShowApiKey(!showApiKey)}
                       className="text-xs"
