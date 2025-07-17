@@ -60,21 +60,13 @@ export const Header = () => {
                 {t('aiVoiceTechnology') || 'AI Voice Technology'}
               </div>
             </div>
-          </Link>
+          </div>
           <nav className="hidden md:block">
             <Button 
               variant="ghost" 
-              className={isHomePage 
-                ? "bg-accent text-white cursor-default pointer-events-none" 
-                : "text-foreground/80 hover:text-foreground hover:bg-primary/5"
-              }
-              asChild={!isHomePage}
+              className="text-foreground/80 bg-accent text-white cursor-default pointer-events-none"
             >
-              {isHomePage ? (
-                <span>{t('home')}</span>
-              ) : (
-                <Link to="/">{t('home')}</Link>
-              )}
+              {t('home')}
             </Button>
           </nav>
         </div>
