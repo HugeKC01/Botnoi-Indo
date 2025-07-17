@@ -18,6 +18,10 @@ interface Translations {
 const translations: Translations = {
   home: { en: 'Home', id: 'Beranda' },
   login: { en: 'Login', id: 'Masuk' },
+  register: { en: 'Register', id: 'Daftar' },
+  logout: { en: 'Logout', id: 'Keluar' },
+  profile: { en: 'Profile', id: 'Profil' },
+  settings: { en: 'Settings', id: 'Pengaturan' },
   apiKey: { en: 'Botnoi API Key', id: 'Kunci API Botnoi' },
   show: { en: 'Show', id: 'Tampilkan' },
   hide: { en: 'Hide', id: 'Sembunyikan' },
@@ -66,6 +70,34 @@ const translations: Translations = {
   tip1: { en: 'Keep sentences short and clear for better pronunciation.', id: 'Gunakan kalimat singkat dan jelas untuk pelafalan yang lebih baik.' },
   tip2: { en: 'Adjust speed and volume to suit your needs.', id: 'Atur kecepatan dan volume sesuai kebutuhan Anda.' },
   tip3: { en: 'Try different Voice IDs for a variety of voices.', id: 'Coba ID Suara yang berbeda untuk variasi suara.' },
+  
+  // Authentication translations
+  email: { en: 'Email', id: 'Email' },
+  password: { en: 'Password', id: 'Kata Sandi' },
+  confirmPassword: { en: 'Confirm Password', id: 'Konfirmasi Kata Sandi' },
+  forgotPassword: { en: 'Forgot Password?', id: 'Lupa Kata Sandi?' },
+  signInWithGoogle: { en: 'Sign in with Google', id: 'Masuk dengan Google' },
+  signUpWithGoogle: { en: 'Sign up with Google', id: 'Daftar dengan Google' },
+  noAccount: { en: "Don't have an account?", id: 'Tidak punya akun?' },
+  haveAccount: { en: 'Already have an account?', id: 'Sudah punya akun?' },
+  signInHere: { en: 'Sign in here', id: 'Masuk di sini' },
+  signUpHere: { en: 'Sign up here', id: 'Daftar di sini' },
+  welcomeBack: { en: 'Welcome back', id: 'Selamat datang kembali' },
+  signInToContinue: { en: 'Sign in to your account to continue.', id: 'Masuk ke akun Anda untuk melanjutkan.' },
+  createAccount: { en: 'Create an account', id: 'Buat akun' },
+  signUpToContinue: { en: 'Sign up to get started with our services.', id: 'Daftar untuk memulai dengan layanan kami.' },
+  signingIn: { en: 'Signing in...', id: 'Sedang masuk...' },
+  signingUp: { en: 'Signing up...', id: 'Sedang mendaftar...' },
+  or: { en: 'or', id: 'atau' },
+  
+  // Error messages
+  passwordsDontMatch: { en: "Passwords don't match", id: 'Kata sandi tidak cocok' },
+  loginError: { en: 'Failed to sign in. Please try again.', id: 'Gagal masuk. Silakan coba lagi.' },
+  registerError: { en: 'Failed to create account. Please try again.', id: 'Gagal membuat akun. Silakan coba lagi.' },
+  
+  // Success messages
+  loginSuccess: { en: 'Welcome back!', id: 'Selamat datang kembali!' },
+  registerSuccess: { en: 'Account created successfully!', id: 'Akun berhasil dibuat!' }
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
