@@ -60,7 +60,7 @@ export const Header = () => {
                 {t('aiVoiceTechnology') || 'AI Voice Technology'}
               </div>
             </div>
-          </div>
+          </Link>
           <nav className="hidden md:block">
             <Button 
               variant="ghost" 
@@ -82,7 +82,6 @@ export const Header = () => {
               <SelectItem value="id">{t('indonesian')}</SelectItem>
             </SelectContent>
           </Select>
-          
           {currentUser ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -140,7 +139,6 @@ export const Header = () => {
               </Button>
             </div>
           )}
-          
           <LoginDialog 
             open={loginOpen} 
             onOpenChange={setLoginOpen} 
