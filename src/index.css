@@ -39,7 +39,7 @@ All colors MUST be HSL.
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
+    --warning: 25 95% 53%;
     --warning-foreground: 0 0% 100%;
 
     --radius: 0.5rem;
@@ -202,5 +202,16 @@ All colors MUST be HSL.
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Safari-specific fixes */
+  @supports (-webkit-appearance: none) {
+    body {
+      background-color: hsl(245 245 250) !important;
+    }
+    
+    .bg-background {
+      background-color: hsl(245 245 250) !important;
+    }
   }
 }
