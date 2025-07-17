@@ -344,40 +344,52 @@ export const TTSForm = () => {
                   </RadioGroup>
                 </div>
               </div>
+
+              {/* Convert to Speech Button */}
+              <div className="pt-4">
+                <Button
+                  onClick={handleGenerate}
+                  disabled={isLoading}
+                  className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white py-3 border-0 shadow-lg transition-all duration-200 hover:shadow-xl"
+                  size="lg"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      {t('processing')}
+                    </>
+                  ) : (
+                    <>
+                      <Mic className="w-5 h-5 mr-2" />
+                      {t('convertToSpeech') || t('generateAudio')}
+                    </>
+                  )}
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Sidebar with Actions and Output */}
+        {/* Sidebar with Output and Tips */}
         <div className="lg:col-span-1 space-y-6">
-          {/* Action Panel */}
-          <Card className="shadow-xl border-0 bg-gradient-to-br from-primary/5 to-accent/5 backdrop-blur-sm">
-            <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-semibold text-foreground mb-4">
-                {t('actions')}
-              </h3>
-              
-              <Button
-                onClick={handleGenerate}
-                disabled={isLoading}
-                className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white py-3 border-0 shadow-lg transition-all duration-200 hover:shadow-xl"
-                size="lg"
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                    {t('processing')}
-                  </>
-                ) : (
-                  <>
-                    <Mic className="w-5 h-5 mr-2" />
-                    {t('convertToSpeech') || t('generateAudio')}
-                  </>
-                )}
-              </Button>
-
-              {audioUrl && (
-                <div className="space-y-3">
+          {/* Audio Output */}
+          {audioUrl && (
+            <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
+                  {t('audioPreview')}
+                </h3>
+                <div className="space-y-4">
+                  <audio controls className="w-full rounded-lg">
+                    <source src={audioUrl} type={`audio/${formData.format}`} />
+                    Your browser does not support the audio element.
+                  </audio>
+                  <div className="text-xs text-muted-foreground text-center">
+                    {t('audioReady')}
+                  </div>
+                </div>
+                {/* Download and Regenerate buttons */}
+                <div className="flex flex-col gap-2 mt-6">
                   <Button
                     onClick={handleDownload}
                     variant="outline"
@@ -395,26 +407,6 @@ export const TTSForm = () => {
                     <RotateCcw className="w-4 h-4 mr-2" />
                     {t('regenerate')}
                   </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Audio Output */}
-          {audioUrl && (
-            <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
-                  {t('audioPreview')}
-                </h3>
-                <div className="space-y-4">
-                  <audio controls className="w-full rounded-lg">
-                    <source src={audioUrl} type={`audio/${formData.format}`} />
-                    Your browser does not support the audio element.
-                  </audio>
-                  <div className="text-xs text-muted-foreground text-center">
-                    {t('audioReady')}
-                  </div>
                 </div>
               </CardContent>
             </Card>
