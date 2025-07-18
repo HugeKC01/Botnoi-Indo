@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,6 +22,11 @@ interface TTSFormData {
   format: string;
 }
 
+interface SpeakerOption {
+  speaker_id: string;
+  name: string;
+}
+
 export const TTSForm = () => {
   const { t, language } = useLanguage();
   const { toast } = useToast();
@@ -29,18 +34,40 @@ export const TTSForm = () => {
   const [formData, setFormData] = useState<TTSFormData>({
     apiKey: '',
     text: '',
-    speaker: '1',
+    speaker: '',
     volume: 1.0,
     speed: 1.0,
     format: 'mp3'
   });
 
+  const [speakerOptions, setSpeakerOptions] = useState<SpeakerOption[]>([]);
   const [showApiKey, setShowApiKey] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [showSidebar, setShowSidebar] = useState(true);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showEmbedDialog, setShowEmbedDialog] = useState(false);
+
+  useEffect(() => {
+    // Fetch and parse the CSV file for speaker options
+    fetch('/resource/speakers_2025-07-14.csv')
+      .then((res) => res.text())
+      .then((csv) => {
+        const lines = csv.trim().split('\n');
+        const options: SpeakerOption[] = [];
+        for (let i = 1; i < lines.length; i++) {
+          const [speaker_id, ...nameParts] = lines[i].split(',');
+          // Handle names with commas (quoted)
+          let name = nameParts.join(',').replace(/^"|"$/g, '').trim();
+          options.push({ speaker_id: speaker_id.trim(), name });
+        }
+        setSpeakerOptions(options);
+        // Set default speaker if not set
+        if (options.length > 0 && !formData.speaker) {
+          setFormData((prev) => ({ ...prev, speaker: options[0].speaker_id }));
+        }
+      });
+  }, []);
 
   const handleGenerate = async () => {
     if (!formData.text.trim()) {
@@ -105,19 +132,15 @@ export const TTSForm = () => {
     }
   };
 
-  const handleDownload = async () => {
+  const handleDownload = () => {
     if (!audioUrl) return;
-
     try {
-      const response = await fetch(audioUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
+      // Direct download using the audioUrl (assumed to be a direct file link)
       const a = document.createElement('a');
-      a.href = url;
+      a.href = audioUrl;
       a.download = `tts-audio.${formData.format}`;
       document.body.appendChild(a);
       a.click();
-      window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (error) {
       toast({
@@ -271,13 +294,21 @@ export const TTSForm = () => {
                     <Label htmlFor="speaker" className="text-sm font-medium">
                       {t('voiceId')}
                     </Label>
-                    <Input
-                      id="speaker"
-                      type="number"
+                    <Select
                       value={formData.speaker}
-                      onChange={(e) => setFormData({ ...formData, speaker: e.target.value })}
-                      className="w-full border-border/50 focus:border-accent transition-colors"
-                    />
+                      onValueChange={(value) => setFormData({ ...formData, speaker: value })}
+                    >
+                      <SelectTrigger className="w-full border-border/50">
+                        <SelectValue placeholder={t('selectSpeaker')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {speakerOptions.map((option) => (
+                          <SelectItem key={option.speaker_id} value={option.speaker_id}>
+                            {option.speaker_id} - {option.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <p className="text-xs text-muted-foreground">
                       {t('voiceIdHint')}
                     </p>
@@ -467,6 +498,22 @@ export const TTSForm = () => {
                     <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></span>
                     <span>{t('tip3')}</span>
                   </li>
+                </ul>
+              </CardContent>
+            </Card>
+            {/* Speaker List */}
+            <Card className="shadow-xl border-0 bg-white/50 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
+                  {t('voiceId')} {t('list') || 'List'}
+                </h3>
+                <ul className="max-h-64 overflow-y-auto space-y-1 text-sm text-muted-foreground">
+                  {speakerOptions.map((option) => (
+                    <li key={option.speaker_id} className="flex items-center gap-2">
+                      <span className="font-mono text-xs text-accent">{option.speaker_id}</span>
+                      <span className="truncate">{option.name}</span>
+                    </li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
