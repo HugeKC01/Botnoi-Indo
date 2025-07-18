@@ -33,8 +33,8 @@ export function RegisterDialog({ open, onOpenChange, onLoginClick }: RegisterDia
 
   const dialogText = {
     title: {
-      en: 'Join Botnoi Indonesia',
-      id: 'Bergabung dengan Botnoi Indonesia',
+      en: 'Join Botnoi Voice',
+      id: 'Bergabung dengan Botnoi Voice',
     },
     email: {
       en: 'Register with Email',
@@ -246,7 +246,7 @@ export function RegisterDialog({ open, onOpenChange, onLoginClick }: RegisterDia
           </form>
 
         <DialogClose asChild>
-          <Button variant="ghost" className="w-full mt-2">{dialogText.cancel[language]}</Button>
+          <Button variant="outline" className="w-full mt-2">{dialogText.cancel[language]}</Button>
         </DialogClose>
       </DialogContent>
     </Dialog>

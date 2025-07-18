@@ -29,8 +29,8 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
   const [loginMode, setLoginMode] = useState<'options' | 'email'>('options');
   const dialogText = {
     title: {
-      en: 'Sign in to Botnoi Indonesia',
-      id: 'Masuk ke Botnoi Indonesia',
+      en: 'Sign in to Botnoi Voice',
+      id: 'Masuk ke Botnoi Voice',
     },
     choose: {
       en: 'Choose a login method below',
@@ -167,7 +167,7 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
               onClick={() => setLoginMode('email')}
               disabled={loading}
             >
-              <Mail className="w-5 h-5 text-blue-500 group-hover:text-white transition-colors" />
+              <Mail className="w-5 h-5 text-blue-500 group-hover:text-accent transition-colors" />
               <span>{dialogText.email[language]}</span>
             </Button>
             
@@ -197,7 +197,7 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
               <span className="text-muted-foreground">{dialogText.noAccount[language]} </span>
               <Button 
                 variant="link" 
-                className="p-0 h-auto font-normal text-primary hover:underline"
+                className="p-0 h-auto font-normal text-primary hover:underline hover:text-accent"
                 onClick={() => {
                   onOpenChange(false);
                   onRegisterClick?.();
@@ -267,7 +267,7 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
         )}
 
         <DialogClose asChild>
-          <Button variant="ghost" className="w-full mt-2">{dialogText.cancel[language]}</Button>
+          <Button variant="outline" className="w-full mt-2">{dialogText.cancel[language]}</Button>
         </DialogClose>
       </DialogContent>
     </Dialog>
