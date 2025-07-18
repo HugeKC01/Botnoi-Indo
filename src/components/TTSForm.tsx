@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff, Mic, Download, RotateCcw, Loader2, Share2, Code } from 'lucide-react';
+import { Eye, EyeOff, Mic, Download, Loader2, Share2, Code, Zap } from 'lucide-react';
 import { ShareDialog } from './ShareDialog';
 import { EmbedDialog } from './EmbedDialog';
 
@@ -355,7 +355,7 @@ export const TTSForm = () => {
 
                   <div className="space-y-4">
                     <Label className="text-sm font-medium flex items-center">
-                      <RotateCcw className="w-4 h-4 mr-2 text-accent" />
+                      <Zap className="w-4 h-4 mr-2 text-accent" />
                       {t('speed')}
                     </Label>
                     <div className="space-y-3">
