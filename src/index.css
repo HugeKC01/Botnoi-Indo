@@ -203,15 +203,4 @@ All colors MUST be HSL.
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-
-  /* Safari-specific fixes */
-  @supports (-webkit-appearance: none) {
-    body {
-      background-color: hsl(245 245 250) !important;
-    }
-    
-    .bg-background {
-      background-color: hsl(245 245 250) !important;
-    }
-  }
 }

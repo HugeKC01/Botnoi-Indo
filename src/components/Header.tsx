@@ -42,25 +42,18 @@ export const Header = () => {
   const isHomePage = location.pathname === '/';
 
   return (
-    <header className="w-full bg-background/95 backdrop-blur-sm border-b border-border/50 px-6 py-4 sticky top-0 z-50">
+    <header className="w-full backdrop-blur-sm border-b border-border/50 px-6 py-4 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-8">
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-lg">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full border-2 border-background"></div>
-            </div>
-            <div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Botnoi Indonesia
-              </span>
-              <div className="text-xs text-muted-foreground font-medium">
-                {t('aiVoiceTechnology') || 'AI Voice Technology'}
-              </div>
-            </div>
-          </Link>
+          <a href="https://voice.botnoi.ai" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3">
+            <img
+              src="https://voice.botnoi.ai/assets/icons/navbar-v2/botnoi_voice-logo4.svg"
+              alt="Botnoi Voice Logo"
+              width={120}
+              height={36}
+              style={{ display: 'block' }}
+            />
+          </a>
           <nav className="hidden md:block">
             <Button 
               variant="ghost" 

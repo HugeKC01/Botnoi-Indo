@@ -134,7 +134,19 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
+
         <DialogHeader>
+          <div className="flex justify-center mb-2">
+            <a href="https://voice.botnoi.ai" target="_blank" rel="noopener noreferrer">
+              <img
+                src="https://voice.botnoi.ai/assets/icons/navbar-v2/botnoi_voice-logo4.svg"
+                alt="Botnoi Voice Logo"
+                width={120}
+                height={36}
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
           <DialogTitle className="text-center">{dialogText.title[language]}</DialogTitle>
           <DialogDescription className="text-center mb-4">
             {loginMode === 'options' ? dialogText.choose[language] : dialogText.email[language]}
