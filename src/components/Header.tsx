@@ -44,13 +44,24 @@ export const Header = () => {
   return (
     <header className="w-full backdrop-blur-sm border-b border-border/50 px-6 py-4 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center space-x-8">
-          <a href="https://voice.botnoi.ai" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3">
+        <div className="flex items-center space-x-8 w-full">
+          {/* Desktop logo */}
+          <a href="https://voice.botnoi.ai" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center space-x-3">
             <img
               src="https://voice.botnoi.ai/assets/icons/navbar-v2/botnoi_voice-logo4.svg"
               alt="Botnoi Voice Logo"
               width={120}
               height={36}
+              style={{ display: 'block' }}
+            />
+          </a>
+          {/* Mobile logo aligned left */}
+          <a href="https://voice.botnoi.ai" target="_blank" rel="noopener noreferrer" className="flex md:hidden items-center mr-auto" style={{marginLeft: 0, paddingLeft: 0}}>
+            <img
+              src="https://voice.botnoi.ai/assets/icons/navbar-v2/logo_mobile2.webp"
+              alt="Botnoi Voice Mobile Logo"
+              width={40}
+              height={40}
               style={{ display: 'block' }}
             />
           </a>
