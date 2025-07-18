@@ -9,7 +9,9 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff, Mic, Download, RotateCcw, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Mic, Download, RotateCcw, Loader2, Share2, Code } from 'lucide-react';
+import { ShareDialog } from './ShareDialog';
+import { EmbedDialog } from './EmbedDialog';
 
 interface TTSFormData {
   apiKey: string;
@@ -21,9 +23,9 @@ interface TTSFormData {
 }
 
 export const TTSForm = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
-  
+
   const [formData, setFormData] = useState<TTSFormData>({
     apiKey: '',
     text: '',
@@ -32,10 +34,13 @@ export const TTSForm = () => {
     speed: 1.0,
     format: 'mp3'
   });
-  
+
   const [showApiKey, setShowApiKey] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [showShareDialog, setShowShareDialog] = useState(false);
+  const [showEmbedDialog, setShowEmbedDialog] = useState(false);
 
   const handleGenerate = async () => {
     if (!formData.text.trim()) {
@@ -128,6 +133,14 @@ export const TTSForm = () => {
     handleGenerate();
   };
 
+  const handleShare = () => {
+    setShowShareDialog(true);
+  };
+
+  const handleEmbed = () => {
+    setShowEmbedDialog(true);
+  };
+
   return (
     <div className="w-full max-w-5xl mx-auto">
       {/* Form Header */}
@@ -140,9 +153,22 @@ export const TTSForm = () => {
         </p>
       </div>
 
+      <div className="flex justify-end mb-4">
+        <Button
+          variant="outline"
+          size="sm"
+          className="px-3"
+          onClick={() => setShowSidebar((prev) => !prev)}
+        >
+          {showSidebar
+            ? (language === 'id' ? 'Sembunyikan Tips' : 'Hide Tips')
+            : (language === 'id' ? 'Tampilkan Tips' : 'Show Tips')}
+        </Button>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Form */}
-        <div className="lg:col-span-2">
+        <div className={showSidebar ? "lg:col-span-2" : "lg:col-span-3"}>
           <Card className="shadow-xl border-0 bg-white backdrop-blur-sm">
             <CardContent className="p-8 space-y-8">
               {/* API Key Section */}
@@ -283,15 +309,15 @@ export const TTSForm = () => {
                       <Slider
                         value={[formData.volume]}
                         onValueChange={(value) => setFormData({ ...formData, volume: value[0] })}
-                        max={2}
+                        max={1}
                         min={0.1}
                         step={0.1}
                         className="w-full"
                       />
                       <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>0.1</span>
-                        <span className="font-medium text-foreground">{formData.volume.toFixed(1)}</span>
-                        <span>2.0</span>
+                        <span>10%</span>
+                        <span className="font-medium text-foreground">{Math.round(formData.volume * 100)}%</span>
+                        <span>100%</span>
                       </div>
                     </div>
                   </div>
@@ -366,76 +392,101 @@ export const TTSForm = () => {
                   )}
                 </Button>
               </div>
+
+              {/* Audio Output moved below Convert to Speech Button */}
+              {audioUrl && (
+                <div className="mt-8">
+                  <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm">
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold text-foreground mb-4">
+                        {t('audioPreview')}
+                      </h3>
+                      <div className="space-y-4">
+                        <audio controls className="w-full rounded-lg">
+                          <source src={audioUrl} type={`audio/${formData.format}`} />
+                          Your browser does not support the audio element.
+                        </audio>
+                        <div className="text-xs text-muted-foreground text-center">
+                          {t('audioReady')}
+                        </div>
+                      </div>
+                      {/* Download, Share, and Embed buttons */}
+                      <div className="flex gap-2 mt-6">
+                        <Button
+                          onClick={handleDownload}
+                          variant="outline"
+                          className="flex-1 border-accent/20 text-accent"
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          {t('download')}
+                        </Button>
+                        <Button
+                          onClick={handleShare}
+                          variant="outline"
+                          size="icon"
+                          className="border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 transition-all duration-200"
+                        >
+                          <Share2 className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          onClick={handleEmbed}
+                          variant="outline"
+                          size="icon"
+                          className="border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 transition-all duration-200"
+                        >
+                          <Code className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
 
         {/* Sidebar with Output and Tips */}
-        <div className="lg:col-span-1 space-y-6">
-          {/* Audio Output */}
-          {audioUrl && (
-            <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm">
+        {showSidebar && (
+          <div className="lg:col-span-1 space-y-6">
+            {/* Quick Tips */}
+            <Card className="shadow-xl border-0 bg-white/50 backdrop-blur-sm">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-foreground mb-4">
-                  {t('audioPreview')}
+                  {t('tips')}
                 </h3>
-                <div className="space-y-4">
-                  <audio controls className="w-full rounded-lg">
-                    <source src={audioUrl} type={`audio/${formData.format}`} />
-                    Your browser does not support the audio element.
-                  </audio>
-                  <div className="text-xs text-muted-foreground text-center">
-                    {t('audioReady')}
-                  </div>
-                </div>
-                {/* Download and Regenerate buttons */}
-                <div className="flex flex-col gap-2 mt-6">
-                  <Button
-                    onClick={handleDownload}
-                    variant="outline"
-                    className="w-full border-accent/20 text-accent hover:bg-accent/5 hover:border-accent/40 transition-all duration-200"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    {t('download')}
-                  </Button>
-                  <Button
-                    onClick={handleRegenerate}
-                    variant="outline"
-                    className="w-full border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 transition-all duration-200"
-                    disabled={isLoading}
-                  >
-                    <RotateCcw className="w-4 h-4 mr-2" />
-                    {t('regenerate')}
-                  </Button>
-                </div>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start space-x-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></span>
+                    <span>{t('tip1')}</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></span>
+                    <span>{t('tip2')}</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></span>
+                    <span>{t('tip3')}</span>
+                  </li>
+                </ul>
               </CardContent>
             </Card>
-          )}
-
-          {/* Quick Tips */}
-          <Card className="shadow-xl border-0 bg-white/50 backdrop-blur-sm">
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold text-foreground mb-4">
-                {t('tips')}
-              </h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start space-x-2">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></span>
-                  <span>{t('tip1')}</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></span>
-                  <span>{t('tip2')}</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></span>
-                  <span>{t('tip3')}</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
+          </div>
+        )}
       </div>
+
+      {/* Share Dialog */}
+      <ShareDialog
+        open={showShareDialog}
+        onOpenChange={setShowShareDialog}
+        audioUrl={audioUrl}
+      />
+
+      {/* Embed Dialog */}
+      <EmbedDialog
+        open={showEmbedDialog}
+        onOpenChange={setShowEmbedDialog}
+        audioUrl={audioUrl}
+      />
     </div>
   );
 };

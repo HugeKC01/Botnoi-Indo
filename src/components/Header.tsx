@@ -73,7 +73,7 @@ export const Header = () => {
 
         <div className="flex items-center space-x-4">
           <Select value={language} onValueChange={(value: 'en' | 'id') => setLanguage(value)}>
-            <SelectTrigger className="w-32 border-border/50 hover:border-accent/50 transition-colors">
+            <SelectTrigger className="w-32 border-border/50 hover:border-accent/50 hover:text-accent transition-colors">
               <Globe className="w-4 h-4 mr-2 text-accent" />
               <SelectValue />
             </SelectTrigger>

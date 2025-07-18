@@ -64,7 +64,7 @@ const translations: Translations = {
   audioFormat: { en: 'Audio Format', id: 'Format Audio' },
   actions: { en: 'Actions', id: 'Aksi' },
   generateAudio: { en: 'Generate Audio', id: 'Buat Audio' },
-  audioPreview: { en: 'Audio Preview', id: 'Pratinjau Audio' },
+audioPreview: { en: 'Generated Audio', id: 'Audio yang Dihasilkan' },
   audioReady: { en: 'Your audio is ready! Listen or download below.', id: 'Audio Anda siap! Dengarkan atau unduh di bawah.' },
   tips: { en: 'Tips for Best Results', id: 'Tips untuk Hasil Terbaik' },
   tip1: { en: 'Keep sentences short and clear for better pronunciation.', id: 'Gunakan kalimat singkat dan jelas untuk pelafalan yang lebih baik.' },

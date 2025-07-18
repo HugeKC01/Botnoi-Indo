@@ -151,17 +151,17 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
           <div className="flex flex-col gap-4">
             <Button 
               variant="outline" 
-              className="w-full flex items-center justify-center gap-2" 
+              className="w-full flex items-center justify-center gap-2 group" 
               onClick={() => setLoginMode('email')}
               disabled={loading}
             >
-              <Mail className="w-5 h-5 text-blue-500" />
+              <Mail className="w-5 h-5 text-blue-500 group-hover:text-white transition-colors" />
               <span>{dialogText.email[language]}</span>
             </Button>
             
             <Button 
               variant="outline" 
-              className="w-full flex items-center justify-center gap-2" 
+              className="w-full flex items-center justify-center gap-2 hover:bg-white hover:text-inherit" 
               onClick={handleGoogleLogin}
               disabled={loading}
             >
