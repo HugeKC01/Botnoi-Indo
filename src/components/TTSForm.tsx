@@ -50,22 +50,34 @@ export const TTSForm = () => {
 
   useEffect(() => {
     // Fetch and parse the CSV file for speaker options
-    fetch('/resource/speakers_2025-07-14.csv')
-      .then((res) => res.text())
+    fetch('/resource/speakers_2025-07-22.csv')
+      .then((res) => {
+        if (!res.ok) throw new Error('CSV not found');
+        return res.text();
+      })
       .then((csv) => {
         const lines = csv.trim().split('\n');
         const options: SpeakerOption[] = [];
         for (let i = 1; i < lines.length; i++) {
           const [speaker_id, ...nameParts] = lines[i].split(',');
-          // Handle names with commas (quoted)
           let name = nameParts.join(',').replace(/^"|"$/g, '').trim();
-          options.push({ speaker_id: speaker_id.trim(), name });
+          if (speaker_id && name) {
+            options.push({ speaker_id: speaker_id.trim(), name });
+          }
         }
         setSpeakerOptions(options);
-        // Set default speaker if not set
         if (options.length > 0 && !formData.speaker) {
           setFormData((prev) => ({ ...prev, speaker: options[0].speaker_id }));
         }
+      })
+      .catch((err) => {
+        setSpeakerOptions([]);
+        // Optionally show a toast or fallback UI
+        toast({
+          title: 'Error',
+          description: 'Speaker list could not be loaded. Please check the CSV file.',
+          variant: 'destructive',
+        });
       });
   }, []);
 

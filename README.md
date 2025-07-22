@@ -1,73 +1,39 @@
-# Botnoi Indonesia
+# Botnoi Indo - Indonesian Text-to-Speech Web App
 
-## Project info
+Botnoi Indo is a modern web application that allows users to convert Indonesian text into natural-sounding speech using Botnoi's TTS API. The app features a voice customization, and easy audio download and sharing options.
 
-**URL**: https://lovable.dev/projects/9d68a40d-f324-48cb-af68-cd45e5a06b00
+## Features
 
-## How can I edit this code?
+- 🇮🇩 **Indonesian Text-to-Speech**: Instantly convert Indonesian text to speech with high-quality, natural-sounding voices.
+- 🔑 **API Key Authentication**: Securely use your Botnoi API key to access TTS services.
+- 🎤 **Voice Customization**: Choose from a variety of speakers, adjust speed and volume, and select audio format (MP3, WAV, M4A).
+- 📥 **Download & Share**: Download generated audio or share it via link/embed.
+- 📱 **Responsive Design**: Optimized for both desktop and mobile devices, with custom mobile branding.
+- 🌐 **Multi-language UI**: Supports both Indonesian and English interfaces.
+- 💡 **Tips & Speaker List**: Sidebar with usage tips and a full list of available speakers.
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+The app will be available at `https://botnoi-indo.vercel.app`.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9d68a40d-f324-48cb-af68-cd45e5a06b00) and start prompting.
+## Usage
+1. **Get your Botnoi API Key**: Sign up at [Botnoi Voice](https://voice.botnoi.ai) and obtain your API key from your dashboard.
+2. **Enter Text**: Type or paste Indonesian text into the input area.
+3. **Configure Voice**: Select a speaker, adjust speed/volume, and choose the audio format.
+4. **Generate Audio**: Click the convert button to generate speech.
+5. **Download or Share**: Download the audio file or use the share/embed options.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Technologies Used
+- Lovable (Setup Project)
+- Github Copilot
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
+- React + TypeScript
 - Vite
-- TypeScript
-- React
-- shadcn-ui
 - Tailwind CSS
+- Botnoi TTS API
 
-## How can I deploy this project?
+## Customization
+- **Default Language**: Indonesian is set as the default UI language.
 
-Simply open [Lovable](https://lovable.dev/projects/9d68a40d-f324-48cb-af68-cd45e5a06b00) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## License
+This project is for demonstration and internal use. For commercial or production use, please contact the Botnoi team.

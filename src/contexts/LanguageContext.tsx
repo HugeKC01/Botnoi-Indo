@@ -103,7 +103,7 @@ audioPreview: { en: 'Generated Audio', id: 'Audio yang Dihasilkan' },
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('id');
 
   const t = (key: string): string => {
     return translations[key]?.[language] || key;
