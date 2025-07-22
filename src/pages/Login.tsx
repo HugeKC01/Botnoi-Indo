@@ -37,7 +37,7 @@ const Login = () => {
         title: "Success!",
         description: "You have been logged in successfully.",
       });
-      navigate('/dashboard');
+      navigate('/profile');
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -54,7 +54,7 @@ const Login = () => {
         title: "Success!",
         description: "You have been logged in with Google.",
       });
-      navigate('/dashboard');
+      navigate('/profile');
     } catch (error: any) {
       setError(error.message);
     } finally {

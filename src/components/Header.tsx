@@ -8,7 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LogIn, Globe, User, Settings, LogOut, LayoutDashboard, Sparkles } from 'lucide-react';
+import { LogIn, Globe, User, Settings, LogOut, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export const Header = () => {
@@ -66,9 +66,16 @@ export const Header = () => {
             />
           </a>
           <nav className="hidden md:block">
-            <Button 
-              variant="ghost" 
-              className="text-foreground/80 bg-accent text-white cursor-default pointer-events-none"
+            <Button
+              variant={isHomePage ? 'default' : 'ghost'}
+              className={
+                isHomePage
+                  ? 'text-white bg-accent cursor-default pointer-events-none'
+                  : 'text-foreground/80 bg-transparent hover:bg-accent'
+              }
+              onClick={() => {
+                if (!isHomePage) navigate('/');
+              }}
             >
               {t('home')}
             </Button>
@@ -111,14 +118,10 @@ export const Header = () => {
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/dashboard" className="flex items-center">
-                    <LayoutDashboard className="mr-2 h-4 w-4" />
-                    <span>{language === 'en' ? 'Dashboard' : 'Dasbor'}</span>
+                  <Link to="/profile" className="flex items-center">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>{language === 'en' ? 'Profile' : 'Profil'}</span>
                   </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>{language === 'en' ? 'Profile' : 'Profil'}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Settings className="mr-2 h-4 w-4" />

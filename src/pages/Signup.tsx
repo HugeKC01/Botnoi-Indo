@@ -65,7 +65,7 @@ const Signup = () => {
         title: "Account created!",
         description: "Your account has been created successfully.",
       });
-      navigate('/dashboard');
+      navigate('/profile');
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -82,7 +82,7 @@ const Signup = () => {
         title: "Account created!",
         description: "Your account has been created with Google.",
       });
-      navigate('/dashboard');
+      navigate('/profile');
     } catch (error: any) {
       setError(error.message);
     } finally {
