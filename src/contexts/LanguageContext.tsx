@@ -16,6 +16,22 @@ interface Translations {
 }
 
 const translations: Translations = {
+  // Profile page specific
+  information: { en: 'Information', id: 'Informasi' },
+  yourAccountDetails: { en: 'Your account details', id: 'Detail akun Anda' },
+  noNameProvided: { en: 'No name provided', id: 'Tidak ada nama' },
+  emailVerified: { en: 'Email Verified', id: 'Email Terverifikasi' },
+  username: { en: 'Username', id: 'Nama Pengguna' },
+  userId: { en: 'User ID', id: 'ID Pengguna' },
+  credits: { en: 'Credits', id: 'Kredit' },
+  subscription: { en: 'Subscription', id: 'Langganan' },
+  monthlyPoint: { en: 'Monthly Point', id: 'Poin Bulanan' },
+  subscriptionExpiry: { en: 'Subscription Expiry', id: 'Berakhir Langganan' },
+  accountStats: { en: 'Account Stats', id: 'Statistik Akun' },
+  loginProvider: { en: 'Login Provider', id: 'Penyedia Login' },
+  lastSignIn: { en: 'Last Sign In', id: 'Terakhir Masuk' },
+  recentActivity: { en: 'Recent Activity', id: 'Aktivitas Terbaru' },
+  noRecentActivity: { en: 'No recent activity to show.', id: 'Tidak ada aktivitas terbaru.' },
   home: { en: 'Home', id: 'Beranda' },
   login: { en: 'Login', id: 'Masuk' },
   register: { en: 'Register', id: 'Daftar' },
