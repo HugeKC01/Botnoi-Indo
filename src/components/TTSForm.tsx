@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,6 +29,7 @@ interface SpeakerOption {
 }
 
 export const TTSForm = () => {
+  const { botnoiToken } = useAuth();
   const { t, language } = useLanguage();
   const { toast } = useToast();
 
@@ -47,6 +49,8 @@ export const TTSForm = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showEmbedDialog, setShowEmbedDialog] = useState(false);
+
+  // Removed auto-fill API key from botnoiToken
 
   useEffect(() => {
     // Fetch and parse the CSV file for speaker options
@@ -204,7 +208,7 @@ export const TTSForm = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Form */}
         <div className={showSidebar ? "lg:col-span-2" : "lg:col-span-3"}>
-          <Card className="shadow-xl border-0 bg-white backdrop-blur-sm">
+          <Card className="border border-border bg-card dark:bg-[hsl(222.2_84%_6%)] dark:border-[hsl(222.2_84%_20%)] backdrop-blur-sm shadow-[0_4px_32px_0_hsl(var(--shadow))]">
             <CardContent className="p-8 space-y-8">
               {/* API Key Section */}
               <div className="space-y-4">
@@ -439,7 +443,7 @@ export const TTSForm = () => {
               {/* Audio Output moved below Convert to Speech Button */}
               {audioUrl && (
                 <div className="mt-8">
-                  <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm">
+                  <Card className="border border-border bg-card/80 dark:bg-[hsl(222.2_84%_8%)] dark:border-[hsl(222.2_84%_24%)] backdrop-blur-sm shadow-[0_4px_32px_0_hsl(var(--shadow))]">
                     <CardContent className="p-6">
                       <h3 className="text-lg font-semibold text-foreground mb-4">
                         {t('audioPreview')}
@@ -492,7 +496,7 @@ export const TTSForm = () => {
         {showSidebar && (
           <div className="lg:col-span-1 space-y-6">
             {/* Quick Tips */}
-            <Card className="shadow-xl border-0 bg-white/50 backdrop-blur-sm">
+            <Card className="border border-border bg-card/70 dark:bg-[hsl(222.2_84%_8%)] dark:border-[hsl(222.2_84%_24%)] backdrop-blur-sm shadow-[0_4px_32px_0_hsl(var(--shadow))]">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-foreground mb-4">
                   {t('tips')}
@@ -514,7 +518,7 @@ export const TTSForm = () => {
               </CardContent>
             </Card>
             {/* Speaker List */}
-            <Card className="shadow-xl border-0 bg-white/50 backdrop-blur-sm">
+            <Card className="border border-border bg-card/70 dark:bg-[hsl(222.2_84%_8%)] dark:border-[hsl(222.2_84%_24%)] backdrop-blur-sm shadow-[0_4px_32px_0_hsl(var(--shadow))]">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-foreground mb-4">
                   {t('voiceId')} {t('list') || 'List'}

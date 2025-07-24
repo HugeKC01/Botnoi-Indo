@@ -173,7 +173,7 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
             
             <Button 
               variant="outline" 
-              className="w-full flex items-center justify-center gap-2 hover:bg-white hover:text-inherit" 
+              className="w-full flex items-center justify-center gap-2 hover:bg-card hover:text-inherit" 
               onClick={handleGoogleLogin}
               disabled={loading}
             >

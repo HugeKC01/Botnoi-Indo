@@ -3,7 +3,7 @@ import { TTSForm } from '@/components/TTSForm';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-card">
       <Header />
       <main className="py-16 px-6">
         <div className="max-w-5xl mx-auto">

@@ -16,6 +16,12 @@ interface Translations {
 }
 
 const translations: Translations = {
+  // Settings page specific
+  appearance: { en: 'Appearance', id: 'Tampilan' },
+  websiteOptions: { en: 'Website Options', id: 'Opsi Website' },
+  accountSettings: { en: 'Account Settings', id: 'Pengaturan Akun' },
+  theme: { en: 'Theme', id: 'Tema' },
+  comingSoon: { en: 'More options coming soon...', id: 'Opsi lain segera hadir...' },
   // Profile page specific
   information: { en: 'Information', id: 'Informasi' },
   yourAccountDetails: { en: 'Your account details', id: 'Detail akun Anda' },

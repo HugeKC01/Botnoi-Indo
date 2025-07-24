@@ -70,7 +70,7 @@ export const Header = () => {
               variant={isHomePage ? 'default' : 'ghost'}
               className={
                 isHomePage
-                  ? 'text-white bg-accent cursor-default pointer-events-none'
+                  ? 'bg-accent cursor-default pointer-events-none'
                   : 'text-foreground/80 bg-transparent hover:bg-accent'
               }
               onClick={() => {
@@ -123,9 +123,11 @@ export const Header = () => {
                     <span>{language === 'en' ? 'Profile' : 'Profil'}</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>{language === 'en' ? 'Settings' : 'Pengaturan'}</span>
+                <DropdownMenuItem asChild>
+                  <Link to="/settings" className="flex items-center">
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>{language === 'en' ? 'Settings' : 'Pengaturan'}</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>

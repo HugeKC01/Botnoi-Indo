@@ -10,121 +10,26 @@ import { Header } from '@/components/Header';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Profile = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, botnoiToken, botnoiProfile } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   // Store Botnoi token and profile in state
   const { t } = useLanguage();
-  const [botnoiToken, setBotnoiToken] = React.useState<string | null>(null);
-  const [botnoiProfile, setBotnoiProfile] = React.useState<any | null>(null);
+  // ...existing code...
 
-  // Fetch Botnoi Token using Firebase JWT Token
-  const getBotnoiToken = async () => {
-    if (!currentUser) return;
-    try {
-      const firebaseToken = await currentUser.getIdToken();
-      const res = await fetch('https://api-voice-staging.botnoi.ai/api/dashboard/firebase_auth', {
-        method: 'GET',
-        headers: {
-          'botnoi-token': `Bearer ${firebaseToken}`,
-        },
-      });
-      if (!res.ok) throw new Error('Failed to fetch Botnoi token');
-      const data = await res.json();
-      if (data.data && data.data.token) {
-        setBotnoiToken(data.data.token);
-        toast({
-          title: 'Botnoi Token',
-          description: 'Token fetched and stored.',
-        });
-        return data.data.token;
-      } else {
-        setBotnoiToken(undefined);
-        toast({
-          title: 'Botnoi Token Error',
-          description: 'No token returned from API. See console for details.',
-          variant: 'destructive',
-        });
-        return undefined;
-      }
-    } catch (err) {
-      toast({
-        title: 'Error',
-        description: err instanceof Error ? err.message : 'Unknown error',
-        variant: 'destructive',
-      });
-      return undefined;
-    }
-  };
-
-  // Auto get Botnoi token and profile after login
+  // Log botnoiProfile and botnoiToken data to console when loaded
   React.useEffect(() => {
-    const fetchBotnoi = async () => {
-      if (currentUser) {
-        const token = await getBotnoiToken();
-        if (token) {
-          // fetch profile
-          try {
-            const res = await fetch('https://api-voice.botnoi.ai/api/dashboard/get_profile', {
-              method: 'GET',
-              headers: {
-                'Authorization': `Bearer ${token}`,
-              },
-            });
-            if (!res.ok) throw new Error('Failed to fetch Botnoi profile');
-            const data = await res.json();
-            setBotnoiProfile(data.data || null);
-            toast({
-              title: 'Botnoi Profile',
-              description: 'Profile loaded.',
-            });
-          } catch (err) {
-            toast({
-              title: 'Error',
-              description: err instanceof Error ? err.message : 'Unknown error',
-              variant: 'destructive',
-            });
-          }
-        }
+    if (botnoiProfile) {
+      console.log('Botnoi Profile Data:', botnoiProfile);
+      console.log('Botnoi Profile Keys:', Object.keys(botnoiProfile));
+    }
+    if (botnoiToken) {
+      console.log('Botnoi Token:', botnoiToken);
+      if (typeof botnoiToken === 'object' && botnoiToken !== null) {
+        console.log('Botnoi Token Keys:', Object.keys(botnoiToken));
       }
-    };
-    fetchBotnoi();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser]);
-
-  // Fetch Botnoi Profile using Botnoi JWT Token
-  const getBotnoiProfile = async () => {
-    if (!botnoiToken) {
-      toast({
-        title: 'Error',
-        description: 'Please get the Botnoi Token first.',
-        variant: 'destructive',
-      });
-      return;
     }
-    try {
-      const res = await fetch('https://api-voice.botnoi.ai/api/dashboard/get_profile', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${botnoiToken}`,
-        },
-      });
-      if (!res.ok) throw new Error('Failed to fetch Botnoi profile');
-      const data = await res.json();
-      setBotnoiProfile(data.data || null);
-      toast({
-        title: 'Botnoi Profile',
-        description: 'Profile loaded.',
-      });
-      console.log('Botnoi Profile:', data);
-    } catch (err) {
-      toast({
-        title: 'Error',
-        description: err instanceof Error ? err.message : 'Unknown error',
-        variant: 'destructive',
-      });
-    }
-  };
+  }, [botnoiProfile, botnoiToken]);
 
   const handleLogout = async () => {
     try {
@@ -154,14 +59,14 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
-      <div className="min-h-screen bg-white">
+      <div className="relative min-h-screen bg-background text-foreground">
+        <Header />
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-center mb-8 bg-card rounded-lg p-6 shadow-sm">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">{t('profile')}</h1>
-              <p className="text-gray-600 mt-1">{t('welcomeBack')}, {botnoiProfile?.username || currentUser?.displayName || t('profile')}!</p>
+              <h1 className="text-3xl font-bold text-foreground">{t('profile')}</h1>
+              <p className="text-muted-foreground mt-1">{t('welcomeBack')}, {botnoiProfile?.username || currentUser?.displayName || t('profile')}!</p>
             </div>
             <Button onClick={handleLogout} variant="outline" className="flex items-center gap-2">
               <LogOut className="h-4 w-4" />
@@ -188,14 +93,14 @@ const Profile = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h3 className="text-xl font-semibold">
+                    <h3 className="text-xl font-semibold text-foreground">
                       {botnoiProfile?.username || currentUser?.displayName || t('noNameProvided') || 'No name provided'}
                     </h3>
-                    <p className="text-gray-600 flex items-center gap-1">
+                    <p className="text-muted-foreground flex items-center gap-1">
                       <Mail className="h-4 w-4" />
                       {botnoiProfile?.email || currentUser?.email || 'N/A'}
                     </p>
-                    <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
+                    <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
                       <Calendar className="h-4 w-4" />
                       Joined {currentUser?.metadata.creationTime && formatDate(currentUser.metadata.creationTime)}
                     </p>
@@ -204,37 +109,37 @@ const Profile = () => {
                 
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                   <div>
-                    <p className="text-sm font-medium text-gray-500">{t('emailVerified') || 'Email Verified'}</p>
-                    <p className={`text-sm ${botnoiProfile ? (botnoiProfile.agreement ? 'text-green-600' : 'text-red-600') : (currentUser?.emailVerified ? 'text-green-600' : 'text-red-600')}`}>{botnoiProfile ? (botnoiProfile.agreement ? 'Yes' : 'No') : (currentUser?.emailVerified ? 'Yes' : 'No')}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('emailVerified') || 'Email Verified'}</p>
+                    <p className={`text-sm ${botnoiProfile ? (botnoiProfile.agreement ? 'text-green-600' : 'text-red-600') : (currentUser?.emailVerified ? 'text-green-600' : 'text-red-600')} text-foreground`}>{botnoiProfile ? (botnoiProfile.agreement ? 'Yes' : 'No') : (currentUser?.emailVerified ? 'Yes' : 'No')}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">{t('username') || 'Username'}</p>
-                    <p className="text-sm text-gray-600 font-mono truncate">{botnoiProfile?.username || currentUser?.displayName || 'No username'}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('username') || 'Username'}</p>
+                    <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.username || currentUser?.displayName || 'No username'}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">{t('userId') || 'User ID'}</p>
-                    <p className="text-sm text-gray-600 font-mono truncate">{botnoiProfile?.uid ? `uid: ${botnoiProfile.uid}` : (currentUser?.uid ? `uid: ${currentUser.uid}` : 'N/A')}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('userId') || 'User ID'}</p>
+                    <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.uid ? `uid: ${botnoiProfile.uid}` : (currentUser?.uid ? `uid: ${currentUser.uid}` : 'N/A')}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">{t('email')}</p>
-                    <p className="text-sm text-gray-600 font-mono truncate">{botnoiProfile?.email || currentUser?.email || 'N/A'}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('email')}</p>
+                    <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.email || currentUser?.email || 'N/A'}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">{t('credits') || 'Credits'}</p>
-                    <p className="text-sm text-gray-600 font-mono truncate">{botnoiProfile?.credits ?? '-'}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('credits') || 'Credits'}</p>
+                    <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.credits ?? '-'}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">{t('subscription') || 'Subscription'}</p>
-                    <p className="text-sm text-gray-600 font-mono truncate">{botnoiProfile?.subscription ?? '-'}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('subscription') || 'Subscription'}</p>
+                    <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.subscription ?? '-'}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500">{t('monthlyPoint') || 'Monthly Point'}</p>
-                    <p className="text-sm text-gray-600 font-mono truncate">{botnoiProfile?.monthly_point ?? '-'}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('monthlyPoint') || 'Monthly Point'}</p>
+                    <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.monthly_point ?? '-'}</p>
                   </div>
                   {botnoiProfile?.subscription && botnoiProfile.subscription !== 'Free' && (
                     <div>
-                      <p className="text-sm font-medium text-gray-500">{t('subscriptionExpiry') || 'Subscription Expiry'}</p>
-                      <p className="text-sm text-gray-600 font-mono truncate">{botnoiProfile.exp_subscription ?? '-'}</p>
+                      <p className="text-sm font-medium text-muted-foreground">{t('subscriptionExpiry') || 'Subscription Expiry'}</p>
+                      <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile.exp_subscription ?? '-'}</p>
                     </div>
                   )}
                 </div>
@@ -251,13 +156,13 @@ const Profile = () => {
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">{t('loginProvider') || 'Login Provider'}</span>
+                    <span className="text-sm text-muted-foreground">{t('loginProvider') || 'Login Provider'}</span>
                     <span className="text-sm font-medium">
                       {currentUser?.providerData[0]?.providerId === 'google.com' ? 'Google' : 'Email'}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">{t('lastSignIn') || 'Last Sign In'}</span>
+                    <span className="text-sm text-muted-foreground">{t('lastSignIn') || 'Last Sign In'}</span>
                     <span className="text-sm font-medium">
                       {currentUser?.metadata.lastSignInTime && formatDate(currentUser.metadata.lastSignInTime)}
                     </span>
@@ -271,7 +176,7 @@ const Profile = () => {
                 <CardTitle>{t('recentActivity') || 'Recent Activity'}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">{t('noRecentActivity') || 'No recent activity to show.'}</p>
+                <p className="text-sm text-muted-foreground">{t('noRecentActivity') || 'No recent activity to show.'}</p>
               </CardContent>
             </Card>
           </div>
