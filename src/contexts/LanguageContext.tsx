@@ -29,7 +29,7 @@ const translations: Translations = {
   emailVerified: { en: 'Email Verified', id: 'Email Terverifikasi' },
   username: { en: 'Username', id: 'Nama Pengguna' },
   userId: { en: 'User ID', id: 'ID Pengguna' },
-  credits: { en: 'Credits', id: 'Kredit' },
+  credits: { en: 'Remaining Credits', id: 'Sisa Kredit' },
   subscription: { en: 'Subscription', id: 'Langganan' },
   monthlyPoint: { en: 'Monthly Point', id: 'Poin Bulanan' },
   subscriptionExpiry: { en: 'Subscription Expiry', id: 'Berakhir Langganan' },
@@ -67,6 +67,9 @@ const translations: Translations = {
   audioGenerated: { en: 'Audio generated successfully!', id: 'Audio berhasil dihasilkan!' },
   pleaseEnterText: { en: 'Please enter text to convert', id: 'Silakan masukkan teks untuk dikonversi' },
   pleaseEnterApiKey: { en: 'Please enter your API key', id: 'Silakan masukkan kunci API Anda' },
+  // TTSForm tips button
+  showTips: { en: 'Show Tips', id: 'Tampilkan Tips' },
+  hideTips: { en: 'Hide Tips', id: 'Sembunyikan Tips' },
   // Newly added/refined TTS form text
   ttsTitle: { en: 'Indonesian Text-to-Speech', id: 'Teks ke Suara Bahasa Indonesia' },
   ttsDescription: {

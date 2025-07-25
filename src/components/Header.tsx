@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 
 export const Header = () => {
   const { language, setLanguage, t } = useLanguage();
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, botnoiProfile } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
@@ -83,6 +83,14 @@ export const Header = () => {
         </div>
 
         <div className="flex items-center space-x-4">
+          {/* Show credits if logged in and botnoiProfile is available */}
+          {currentUser && botnoiProfile && (
+            <div className="hidden md:flex items-center h-10 px-4 rounded-md bg-accent/10 border border-accent/30 text-accent text-sm font-medium mr-2 select-none" style={{minWidth:'0'}}>
+              <Sparkles className="w-4 h-4 mr-1 text-accent flex-shrink-0" />
+              <span className="whitespace-nowrap">{t('credits')}:</span>&nbsp;
+              <span className="whitespace-nowrap font-mono">{botnoiProfile?.credits ?? '-'}</span>
+            </div>
+          )}
           <Select value={language} onValueChange={(value: 'en' | 'id') => setLanguage(value)}>
             <SelectTrigger className="w-32 border-border/50 hover:border-accent/50 hover:text-accent transition-colors">
               <Globe className="w-4 h-4 mr-2 text-accent" />
@@ -98,9 +106,9 @@ export const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                   <Avatar className="h-10 w-10">
-                    <AvatarImage src={currentUser.photoURL || undefined} alt={currentUser.displayName || 'User'} />
+                    <AvatarImage src={botnoiProfile?.photoURL || currentUser.photoURL || undefined} alt={botnoiProfile?.username || currentUser.displayName || 'User'} />
                     <AvatarFallback className="bg-primary text-primary-foreground">
-                      {getInitials(currentUser.displayName)}
+                      {getInitials(botnoiProfile?.username || currentUser.displayName)}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -108,12 +116,13 @@ export const Header = () => {
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <div className="flex items-center justify-start gap-2 p-2">
                   <div className="flex flex-col space-y-1 leading-none">
-                    {currentUser.displayName && (
-                      <p className="font-medium">{currentUser.displayName}</p>
-                    )}
+                    <p className="font-medium">{botnoiProfile?.username || currentUser.displayName}</p>
                     <p className="w-[200px] truncate text-sm text-muted-foreground">
-                      {currentUser.email}
+                      {botnoiProfile?.email || currentUser.email}
                     </p>
+                    {botnoiProfile?.uid && (
+                      <p className="w-[200px] truncate text-xs text-muted-foreground font-mono">uid: {botnoiProfile.uid}</p>
+                    )}
                   </div>
                 </div>
                 <DropdownMenuSeparator />

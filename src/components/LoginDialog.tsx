@@ -195,6 +195,15 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
 
             <div className="text-center text-sm">
               <span className="text-muted-foreground">{dialogText.noAccount[language]} </span>
+              <a
+                href="https://voice.botnoi.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-0 h-auto font-normal text-primary hover:underline hover:text-accent"
+              >
+                {dialogText.register[language]}
+              </a>
+              {/*
               <Button 
                 variant="link" 
                 className="p-0 h-auto font-normal text-primary hover:underline hover:text-accent"
@@ -205,6 +214,7 @@ export function LoginDialog({ open, onOpenChange, onRegisterClick }: LoginDialog
               >
                 {dialogText.register[language]}
               </Button>
+              */}
             </div>
           </div>
         ) : (

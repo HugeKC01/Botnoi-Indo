@@ -111,22 +111,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 },
               });
               const apiKeyData = await apiKeyRes.json();
-              console.log('Botnoi API key response:', apiKeyData);
               if (apiKeyData && apiKeyData.message === 'success' && apiKeyData.data) {
                 if (apiKeyData.data.token) {
-                  console.log('Retrieved API key successfully from Botnoi API');
                   setBotnoiApiKey(apiKeyData.data.token);
                 } else {
-                  console.log('API key is empty, using Botnoi token as fallback');
                   setBotnoiApiKey(data.data.token);
                 }
               } else {
-                console.log('Invalid API key response format, using Botnoi token as fallback');
                 setBotnoiApiKey(data.data.token);
               }
             } catch (err) {
-              console.error('Error getting Botnoi API key:', err);
-              console.log('Using Botnoi token as fallback due to error');
               setBotnoiApiKey(data.data.token);
             }
           } else {

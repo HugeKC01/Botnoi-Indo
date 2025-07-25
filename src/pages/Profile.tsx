@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
-import { LogOut, User, Mail, Calendar } from 'lucide-react';
+import { LogOut, User, Mail, Calendar, Sparkles } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -17,20 +17,6 @@ const Profile = () => {
   const { t } = useLanguage();
   // ...existing code...
 
-  // Log botnoiProfile and botnoiToken data to console when loaded
-  React.useEffect(() => {
-    if (botnoiProfile) {
-      console.log('Botnoi Profile Data:', botnoiProfile);
-      console.log('Botnoi Profile Keys:', Object.keys(botnoiProfile));
-    }
-    if (botnoiToken) {
-      console.log('Botnoi Token:', botnoiToken);
-      if (typeof botnoiToken === 'object' && botnoiToken !== null) {
-        console.log('Botnoi Token Keys:', Object.keys(botnoiToken));
-      }
-    }
-  }, [botnoiProfile, botnoiToken]);
-
   const handleLogout = async () => {
     try {
       await logout();
@@ -38,7 +24,7 @@ const Profile = () => {
         title: "Logged out",
         description: "You have been logged out successfully.",
       });
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -87,9 +73,9 @@ const Profile = () => {
               <CardContent className="space-y-4">
                 <div className="flex items-center space-x-4">
                   <Avatar className="h-16 w-16">
-                    <AvatarImage src={currentUser?.photoURL || ''} />
+                    <AvatarImage src={botnoiProfile?.photoURL || currentUser?.photoURL || ''} />
                     <AvatarFallback className="text-lg">
-                      {getInitials(currentUser?.displayName)}
+                      {getInitials(botnoiProfile?.username || currentUser?.displayName)}
                     </AvatarFallback>
                   </Avatar>
                   <div>
@@ -109,36 +95,60 @@ const Profile = () => {
                 
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{t('emailVerified') || 'Email Verified'}</p>
+                    <p className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                      <Mail className="h-4 w-4" />
+                      {t('emailVerified') || 'Email Verified'}
+                    </p>
                     <p className={`text-sm ${botnoiProfile ? (botnoiProfile.agreement ? 'text-green-600' : 'text-red-600') : (currentUser?.emailVerified ? 'text-green-600' : 'text-red-600')} text-foreground`}>{botnoiProfile ? (botnoiProfile.agreement ? 'Yes' : 'No') : (currentUser?.emailVerified ? 'Yes' : 'No')}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{t('username') || 'Username'}</p>
+                    <p className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      {t('username') || 'Username'}
+                    </p>
                     <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.username || currentUser?.displayName || 'No username'}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{t('userId') || 'User ID'}</p>
+                    <p className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      {t('userId') || 'User ID'}
+                    </p>
                     <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.uid ? `uid: ${botnoiProfile.uid}` : (currentUser?.uid ? `uid: ${currentUser.uid}` : 'N/A')}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{t('email')}</p>
+                    <p className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                      <Mail className="h-4 w-4" />
+                      {t('email')}
+                    </p>
                     <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.email || currentUser?.email || 'N/A'}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{t('credits') || 'Credits'}</p>
+                    <p className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                      <Sparkles className="h-4 w-4" />
+                      {t('credits') || 'Credits'}
+                    </p>
                     <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.credits ?? '-'}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{t('subscription') || 'Subscription'}</p>
+                    <p className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                      <Calendar className="h-4 w-4" />
+                      {t('subscription') || 'Subscription'}
+                    </p>
                     <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.subscription ?? '-'}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{t('monthlyPoint') || 'Monthly Point'}</p>
+                    <p className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                      <Calendar className="h-4 w-4" />
+                      {t('monthlyPoint') || 'Monthly Point'}
+                    </p>
                     <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile?.monthly_point ?? '-'}</p>
                   </div>
                   {botnoiProfile?.subscription && botnoiProfile.subscription !== 'Free' && (
                     <div>
-                      <p className="text-sm font-medium text-muted-foreground">{t('subscriptionExpiry') || 'Subscription Expiry'}</p>
+                      <p className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                        <Calendar className="h-4 w-4" />
+                        {t('subscriptionExpiry') || 'Subscription Expiry'}
+                      </p>
                       <p className="text-sm text-muted-foreground font-mono truncate">{botnoiProfile.exp_subscription ?? '-'}</p>
                     </div>
                   )}

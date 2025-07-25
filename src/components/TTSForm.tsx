@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff, Mic, Download, Loader2, Share2, Code, Zap } from 'lucide-react';
+import { Eye, EyeOff, Mic, Download, Loader2, Share2, Code, Zap, KeyRound, MessageSquareText, Settings2, Volume2, Languages, Sparkles, User } from 'lucide-react';
 import { ShareDialog } from './ShareDialog';
 import { EmbedDialog } from './EmbedDialog';
 
@@ -192,10 +192,11 @@ export const TTSForm = () => {
     <div className="w-full max-w-5xl mx-auto">
       {/* Form Header */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-foreground mb-4">
+        <h2 className="text-3xl font-bold text-foreground mb-4 flex items-center justify-center gap-2">
+          <Sparkles className="w-7 h-7 text-accent" />
           {t('ttsTitle')}
         </h2>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto flex items-center justify-center gap-2">
           {t('ttsDescription')}
         </p>
       </div>
@@ -207,9 +208,7 @@ export const TTSForm = () => {
           className="px-3"
           onClick={() => setShowSidebar((prev) => !prev)}
         >
-          {showSidebar
-            ? (language === 'id' ? 'Sembunyikan Tips' : 'Hide Tips')
-            : (language === 'id' ? 'Tampilkan Tips' : 'Show Tips')}
+          {showSidebar ? t('hideTips') : t('showTips')}
         </Button>
       </div>
 
@@ -224,7 +223,8 @@ export const TTSForm = () => {
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
                     <span className="text-primary font-bold text-sm">1</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground">
+                  <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                    <KeyRound className="w-5 h-5 text-primary" />
                     {t('apiKeySection')}
                   </h3>
                 </div>
@@ -280,7 +280,8 @@ export const TTSForm = () => {
                   <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
                     <span className="text-accent font-bold text-sm">2</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground">
+                  <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                    <MessageSquareText className="w-5 h-5 text-accent" />
                     {t('textSection')}
                   </h3>
                 </div>
@@ -313,7 +314,8 @@ export const TTSForm = () => {
                   <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center">
                     <span className="text-success font-bold text-sm">3</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground">
+                  <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                    <Settings2 className="w-5 h-5 text-success" />
                     {t('voiceSection')}
                   </h3>
                 </div>
@@ -321,7 +323,8 @@ export const TTSForm = () => {
                 {/* Speaker and Language */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="speaker" className="text-sm font-medium">
+                    <Label htmlFor="speaker" className="text-sm font-medium flex items-center gap-2">
+                      <User className="w-4 h-4 text-accent" />
                       {t('voiceId')}
                     </Label>
                     <Select
@@ -345,7 +348,8 @@ export const TTSForm = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium">
+                    <Label className="text-sm font-medium flex items-center gap-2">
+                      <Languages className="w-4 h-4 text-accent" />
                       {t('language')}
                     </Label>
                     <Select value="id" disabled>
@@ -362,8 +366,8 @@ export const TTSForm = () => {
                 {/* Volume and Speed */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4">
-                    <Label className="text-sm font-medium flex items-center">
-                      <Mic className="w-4 h-4 mr-2 text-accent" />
+                    <Label className="text-sm font-medium flex items-center gap-2">
+                      <Volume2 className="w-4 h-4 text-accent" />
                       {t('volume')}
                     </Label>
                     <div className="space-y-3">
@@ -384,8 +388,8 @@ export const TTSForm = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <Label className="text-sm font-medium flex items-center">
-                      <Zap className="w-4 h-4 mr-2 text-accent" />
+                    <Label className="text-sm font-medium flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-accent" />
                       {t('speed')}
                     </Label>
                     <div className="space-y-3">
@@ -408,7 +412,8 @@ export const TTSForm = () => {
 
                 {/* Media Format */}
                 <div className="space-y-3">
-                  <Label className="text-sm font-medium">
+                  <Label className="text-sm font-medium flex items-center gap-2">
+                    <Volume2 className="w-4 h-4 text-accent" />
                     {t('audioFormat')}
                   </Label>
                   <RadioGroup
@@ -459,7 +464,8 @@ export const TTSForm = () => {
                 <div className="mt-8">
                   <Card className="border border-border bg-card/80 dark:bg-[hsl(222.2_84%_8%)] dark:border-[hsl(222.2_84%_24%)] backdrop-blur-sm shadow-[0_4px_32px_0_hsl(var(--shadow))]">
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-foreground mb-4">
+                      <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+                        <Volume2 className="w-5 h-5 text-accent" />
                         {t('audioPreview')}
                       </h3>
                       <div className="space-y-4">
@@ -512,7 +518,8 @@ export const TTSForm = () => {
             {/* Quick Tips */}
             <Card className="border border-border bg-card/70 dark:bg-[hsl(222.2_84%_8%)] dark:border-[hsl(222.2_84%_24%)] backdrop-blur-sm shadow-[0_4px_32px_0_hsl(var(--shadow))]">
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
+                <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-accent" />
                   {t('tips')}
                 </h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -534,7 +541,8 @@ export const TTSForm = () => {
             {/* Speaker List */}
             <Card className="border border-border bg-card/70 dark:bg-[hsl(222.2_84%_8%)] dark:border-[hsl(222.2_84%_24%)] backdrop-blur-sm shadow-[0_4px_32px_0_hsl(var(--shadow))]">
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
+                <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+                  <User className="w-5 h-5 text-accent" />
                   {t('voiceId')} {t('list') || 'List'}
                 </h3>
                 <ul className="max-h-64 overflow-y-auto space-y-1 text-sm text-muted-foreground">
