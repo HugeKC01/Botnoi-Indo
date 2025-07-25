@@ -23,13 +23,15 @@ interface TTSFormData {
   format: string;
 }
 
+
 interface SpeakerOption {
   speaker_id: string;
   name: string;
 }
 
 export const TTSForm = () => {
-  const { botnoiToken } = useAuth();
+
+  const { botnoiApiKey } = useAuth();
   const { t, language } = useLanguage();
   const { toast } = useToast();
 
@@ -50,7 +52,13 @@ export const TTSForm = () => {
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showEmbedDialog, setShowEmbedDialog] = useState(false);
 
-  // Removed auto-fill API key from botnoiToken
+
+  // Auto-fill API key from botnoiApiKey if available and field is empty
+  useEffect(() => {
+    if (botnoiApiKey && !formData.apiKey) {
+      setFormData((prev) => ({ ...prev, apiKey: botnoiApiKey }));
+    }
+  }, [botnoiApiKey]);
 
   useEffect(() => {
     // Fetch and parse the CSV file for speaker options
@@ -221,7 +229,7 @@ export const TTSForm = () => {
                   </h3>
                 </div>
                 
-                <div className="space-y-2">
+              <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="apiKey" className="text-sm font-medium">
                       {t('apiKeySection')}
@@ -246,6 +254,12 @@ export const TTSForm = () => {
                       )}
                     </Button>
                   </div>
+                  {botnoiApiKey && formData.apiKey === botnoiApiKey && (
+                  <div className="mb-2 border border-accent bg-accent/10 text-accent px-4 py-2 rounded text-sm flex items-center gap-2">
+                    <span className="font-semibold">Info:</span>
+                    <span>{t('apiKeyAutoFilled')}</span>
+                  </div>
+                  )}
                   <Input
                     id="apiKey"
                     type={showApiKey ? 'text' : 'password'}

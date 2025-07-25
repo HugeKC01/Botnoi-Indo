@@ -12,19 +12,21 @@ import {
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
-interface AuthContextType {
+type AuthContextType = {
   currentUser: User | null;
   loading: boolean;
   botnoiToken: string | null;
   setBotnoiToken: (token: string | null) => void;
   botnoiProfile: any | null;
   setBotnoiProfile: (profile: any | null) => void;
+  botnoiApiKey: string | null;
+  setBotnoiApiKey: (key: string | null) => void;
   signup: (email: string, password: string, displayName?: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
-}
+};
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -41,6 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
   const [botnoiToken, setBotnoiToken] = useState<string | null>(null);
   const [botnoiProfile, setBotnoiProfile] = useState<any | null>(null);
+  const [botnoiApiKey, setBotnoiApiKey] = useState<string | null>(null);
 
   const signup = async (email: string, password: string, displayName?: string) => {
     const { user } = await createUserWithEmailAndPassword(auth, email, password);
@@ -70,7 +73,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       setLoading(false);
-      // Fetch Botnoi token and profile if user is logged in
+      // Fetch Botnoi token, profile, and API key if user is logged in
       if (user) {
         try {
           const firebaseToken = await user.getIdToken();
@@ -98,17 +101,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             } catch {
               setBotnoiProfile(null);
             }
+            // Fetch Botnoi API Key (different from profile token)
+            try {
+              const userId = data.data.uid || user.uid;
+              const apiKeyRes = await fetch(`https://api-voice.botnoi.ai/db/dashboard/get_token?user_id=${userId}`, {
+                method: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${data.data.token}`,
+                },
+              });
+              const apiKeyData = await apiKeyRes.json();
+              console.log('Botnoi API key response:', apiKeyData);
+              if (apiKeyData && apiKeyData.message === 'success' && apiKeyData.data) {
+                if (apiKeyData.data.token) {
+                  console.log('Retrieved API key successfully from Botnoi API');
+                  setBotnoiApiKey(apiKeyData.data.token);
+                } else {
+                  console.log('API key is empty, using Botnoi token as fallback');
+                  setBotnoiApiKey(data.data.token);
+                }
+              } else {
+                console.log('Invalid API key response format, using Botnoi token as fallback');
+                setBotnoiApiKey(data.data.token);
+              }
+            } catch (err) {
+              console.error('Error getting Botnoi API key:', err);
+              console.log('Using Botnoi token as fallback due to error');
+              setBotnoiApiKey(data.data.token);
+            }
           } else {
             setBotnoiToken(null);
             setBotnoiProfile(null);
+            setBotnoiApiKey(null);
           }
         } catch {
           setBotnoiToken(null);
           setBotnoiProfile(null);
+          setBotnoiApiKey(null);
         }
       } else {
         setBotnoiToken(null);
         setBotnoiProfile(null);
+        setBotnoiApiKey(null);
       }
     });
     return unsubscribe;
@@ -121,6 +155,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setBotnoiToken,
     botnoiProfile,
     setBotnoiProfile,
+    botnoiApiKey,
+    setBotnoiApiKey,
     signup,
     login,
     logout,

@@ -75,6 +75,10 @@ const translations: Translations = {
   },
   apiKeySection: { en: 'API Key', id: 'Kunci API' },
   apiKeyHint: { en: 'Get your API key from your Botnoi account dashboard.', id: 'Dapatkan kunci API Anda dari dasbor akun Botnoi.' },
+  apiKeyAutoFilled: {
+    en: 'Your API key was automatically retrieved from your Botnoi account.',
+    id: 'Kunci API Anda diambil secara otomatis dari akun Botnoi Anda.'
+  },
   textSection: { en: 'Text to Convert', id: 'Teks untuk Dikonversi' },
   textLabel: { en: 'Text', id: 'Teks' },
   textPlaceholder: { en: 'Type or paste Indonesian text here...', id: 'Ketik atau tempel teks Bahasa Indonesia di sini...' },
